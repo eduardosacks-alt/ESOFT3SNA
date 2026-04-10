@@ -189,7 +189,273 @@ int main() {
     Aluno *melhor = maiorNota(turma, n);
     printf("Melhor aluno: %s com nota %.2f\n", melhor->nome, melhor->nota);
 
+    
+ATIVIDADE2
+desafio1
+    
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definição do nó da pilha
+typedef struct No {
+    char dado;
+    struct No *proximo;
+} No;
+
+// Operações da Pilha
+void push(No **topo, char valor) {
+    No *novo = (No*) malloc(sizeof(No));
+    if (novo) {
+        novo->dado = valor;
+        novo->proximo = *topo;
+        *topo = novo;
+    }
+}
+
+char pop(No **topo) {
+    if (*topo == NULL) return '\0';
+    No *temp = *topo;
+    char valor = temp->dado;
+    *topo = temp->proximo;
+    free(temp);
+    return valor;
+}
+
+int isEmpty(No *topo) {
+    return topo == NULL;
+}
+
+int correspondente(char abrindo, char fechando) {
+    if (abrindo == '(' && fechando == ')') return 1;
+    if (abrindo == '[' && fechando == ']') return 1;
+    if (abrindo == '{' && fechando == '}') return 1;
+    return 0;
+}
+
+int main() {
+    char expressao[100];
+    No *pilha = NULL;
+    int valida = 1;
+
+    printf("Digite a expressão: ");
+    scanf("%s", expressao);
+
+    char *p = expressao;
+    while (*p != '\0') {
+        if (*p == '(' || *p == '[' || *p == '{') {
+            push(&pilha, *p);
+        } else if (*p == ')' || *p == ']' || *p == '}') {
+            if (isEmpty(pilha) || !correspondente(pop(&pilha), *p)) {
+                valida = 0;
+                break;
+            }
+        }
+        p++;
+    }
+
+    if (valida && isEmpty(pilha)) {
+        printf("Expressão Válida!\n");
+    } else {
+        printf("Expressão Inválida!\n");
+        // Limpar pilha remanescente se necessário
+        while (!isEmpty(pilha)) pop(&pilha);
+    }
+
+    return 0;
+}
     free(turma);
+    return 0;
+}
+
+
+desafio2:
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    char caracter;
+    struct No *prox;
+} No;
+
+void push(No **topo, char c) {
+    No *novo = (No*) malloc(sizeof(No));
+    if (novo) {
+        novo->caracter = c;
+        novo->prox = *topo;
+        *topo = novo;
+    }
+}
+
+char pop(No **topo) {
+    if (*topo == NULL) return '\0';
+    No *aux = *topo;
+    char c = aux->caracter;
+    *topo = aux->prox;
+    free(aux);
+    return c;
+}
+
+int main() {
+    char str[100];
+    No *pilha = NULL;
+
+    printf("Digite uma string: ");
+    scanf(" %[^\n]", str); // Lê inclusive espaços
+
+    // 1. Inserir cada caractere na pilha
+    char *ptr = str;
+    while (*ptr != '\0') {
+        push(&pilha, *ptr);
+        ptr++;
+    }
+
+    // 2. Desempilhar de volta na string original (sobrescrevendo)
+    ptr = str;
+    while (pilha != NULL) {
+        *ptr = pop(&pilha);
+        ptr++;
+    }
+    // O ponteiro ptr terminou no fim, a string original agora está invertida
+
+    printf("String invertida: %s\n", str);
+
+    return 0;
+}
+
+
+
+ATIVIDADE3
+desafio1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Cliente {
+    int id;
+    int tempoAtendimento;
+    struct Cliente *proximo;
+} Cliente;
+
+typedef struct {
+    Cliente *frente;
+    Cliente *tras;
+} Fila;
+
+void enfileirar(Fila *f, int id, int tempo) {
+    Cliente *novo = (Cliente*) malloc(sizeof(Cliente));
+    novo->id = id;
+    novo->tempoAtendimento = tempo;
+    novo->proximo = NULL;
+
+    if (f->tras == NULL) {
+        f->frente = f->tras = novo;
+    } else {
+        f->tras->proximo = novo;
+        f->tras = novo;
+    }
+}
+
+void atender(Fila *f) {
+    int tempoEsperaTotal = 0;
+    Cliente *atual = f->frente;
+
+    printf("\n--- Relatório de Atendimento ---\n");
+    while (atual != NULL) {
+        printf("Cliente ID: %d | Espera: %d min | Atendimento: %d min\n", 
+                atual->id, tempoEsperaTotal, atual->tempoAtendimento);
+        
+        tempoEsperaTotal += atual->tempoAtendimento;
+        
+        // Remover da memória
+        Cliente *temp = atual;
+        atual = atual->proximo;
+        free(temp);
+    }
+    f->frente = f->tras = NULL;
+}
+
+int main() {
+    Fila filaAtendimento = {NULL, NULL};
+    int n, t;
+
+    printf("Quantos clientes serão atendidos? ");
+    scanf("%d", &n);
+
+    for (int i = 1; i <= n; i++) {
+        printf("Tempo de atendimento do cliente %d: ", i);
+        scanf("%d", &t);
+        enfileirar(&filaAtendimento, i, t);
+    }
+
+    atender(&filaAtendimento);
+    return 0;
+}
+
+
+desafio2:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Documento {
+    int id;
+    int paginas;
+    int prioridade;
+    struct Documento *proximo;
+} Documento;
+
+// Inserção ordenada por prioridade
+void inserirComPrioridade(Documento **frente, int id, int pag, int prio) {
+    Documento *novo = (Documento*) malloc(sizeof(Documento));
+    novo->id = id;
+    novo->paginas = pag;
+    novo->prioridade = prio;
+    novo->proximo = NULL;
+
+    // Caso 1: Fila vazia ou novo documento tem maior prioridade que o primeiro
+    if (*frente == NULL || prio < (*frente)->prioridade) {
+        novo->proximo = *frente;
+        *frente = novo;
+    } 
+    else {
+        // Caso 2: Procurar a posição correta (mantendo ordem de chegada em empates)
+        Documento *atual = *frente;
+        while (atual->proximo != NULL && atual->proximo->prioridade <= prio) {
+            atual = atual->proximo;
+        }
+        novo->proximo = atual->proximo;
+        atual->proximo = novo;
+    }
+}
+
+void imprimirFila(Documento **frente) {
+    printf("\n--- Ordem de Impressão ---\n");
+    while (*frente != NULL) {
+        Documento *temp = *frente;
+        printf("[Prioridade: %d] Doc ID: %d | Páginas: %d\n", 
+                temp->prioridade, temp->id, temp->paginas);
+        
+        *frente = (*frente)->proximo;
+        free(temp);
+    }
+}
+
+int main() {
+    Documento *filaImpressao = NULL;
+    int n, id, pag, prio;
+
+    printf("Quantidade de documentos para impressão: ");
+    scanf("%d", &n);
+
+    for (int i = 0; i < n; i++) {
+        printf("\nDoc %d - ID, Páginas e Prioridade (ex: 101 5 1): ", i + 1);
+        scanf("%d %d %d", &id, &pag, &prio);
+        inserirComPrioridade(&filaImpressao, id, pag, prio);
+    }
+
+    imprimirFila(&filaImpressao);
     return 0;
 }
 
