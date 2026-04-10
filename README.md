@@ -1,6 +1,7 @@
 # ESOFT3SNA
 Nome: eduardo bersch sacks
 
+Atv1
 #include <stdio.h>
 
 int main() {
@@ -11,6 +12,7 @@ int main() {
     return 0;
 }
 
+atv2
  #include <stdio.h>
 
 int main() {
@@ -20,6 +22,7 @@ int main() {
     return 0;
 }
 
+at3
  #include <stdio.h>
 
 int main() {
@@ -36,7 +39,7 @@ int main() {
     return 0;
 }
 
-
+atv4
  #include <stdio.h>
 
 int main() {
@@ -52,7 +55,7 @@ int main() {
             for(int k = 0; k < 3; k++)
                 R[i][j] += A[i][k] * I[k][j];
                 
-    printf("Resultado da multiplicacao (deve ser igual a original):\n");
+printf("Resultado da multiplicacao (deve ser igual a original):\n");
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) printf("%d ", R[i][j]);
         printf("\n");
@@ -60,7 +63,7 @@ int main() {
     return 0;
 }
 
-
+atv5
   #include <stdio.h>
 
 int main() {
@@ -69,15 +72,15 @@ int main() {
     for(int i = 0; i < 3; i++)
         for(int j = 0; j < 3; j++) scanf("%d", &m[i][j]);
 
-    for(int j = 0; j < 3; j++) // Colunas
+for(int j = 0; j < 3; j++) // Colunas
         for(int i = 0; i < 3; i++) // Linhas
             res[j] += v[i] * m[i][j];
 
-    for(int i = 0; i < 3; i++) printf("Res[%d]: %d\n", i, res[i]);
+for(int i = 0; i < 3; i++) printf("Res[%d]: %d\n", i, res[i]);
     return 0;
 }
 
- 
+ atv6
  #include <stdio.h>
 
 typedef struct {
@@ -90,20 +93,20 @@ int main() {
     Aluno todos[10], aprovados[10], reprovados[10];
     int ca = 0, cr = 0;
 
-    for(int i = 0; i < 10; i++) {
+for(int i = 0; i < 10; i++) {
         scanf("%s %d %f", todos[i].nome, &todos[i].matricula, &todos[i].media);
         if(todos[i].media >= 5.0) aprovados[ca++] = todos[i];
         else reprovados[cr++] = todos[i];
     }
 
-    printf("\nAprovados:\n");
+printf("\nAprovados:\n");
     for(int i = 0; i < ca; i++) printf("%s\n", aprovados[i].nome);
     printf("\nReprovados:\n");
     for(int i = 0; i < cr; i++) printf("%s\n", reprovados[i].nome);
     return 0;
 }
 
- 
+ atv7
  #include <stdio.h>
 #include <string.h>
 
@@ -118,17 +121,17 @@ int main() {
     for(int i = 0; i < 5; i++) 
         scanf(" %30[^\n] %15[^\n] %d", livros[i].titulo, livros[i].autor, &livros[i].ano);
 
-    printf("Buscar titulo: ");
+printf("Buscar titulo: ");
     scanf(" %30[^\n]", busca);
 
-    for(int i = 0; i < 5; i++) {
+for(int i = 0; i < 5; i++) {
         if(strcmp(livros[i].titulo, busca) == 0)
             printf("Achado: %s, Autor: %s, Ano: %d\n", livros[i].titulo, livros[i].autor, livros[i].ano);
     }
     return 0;
 }
 
-
+atv8
 #include <stdio.h>
 
 int main() {
@@ -138,7 +141,7 @@ int main() {
     return 0;
 }
 
- 
+ atv9
  #include <stdio.h>
 
 int ordena(int *a, int *b, int *c) {
@@ -158,7 +161,7 @@ int main() {
 }
 
 
-
+at10
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -180,13 +183,13 @@ int main() {
     printf("Quantidade de alunos: ");
     scanf("%d", &n);
 
-    Aluno *turma = (Aluno*) malloc(n * sizeof(Aluno));
+Aluno *turma = (Aluno*) malloc(n * sizeof(Aluno));
 
-    for(int i = 0; i < n; i++) {
+for(int i = 0; i < n; i++) {
         scanf("%s %f", (turma + i)->nome, &(turma + i)->nota);
     }
 
-    Aluno *melhor = maiorNota(turma, n);
+Aluno *melhor = maiorNota(turma, n);
     printf("Melhor aluno: %s com nota %.2f\n", melhor->nome, melhor->nota);
 
     
@@ -196,13 +199,13 @@ desafio1
 #include <stdio.h>
 #include <stdlib.h>
 
-// Definição do nó da pilha
+
 typedef struct No {
     char dado;
     struct No *proximo;
 } No;
 
-// Operações da Pilha
+
 void push(No **topo, char valor) {
     No *novo = (No*) malloc(sizeof(No));
     if (novo) {
@@ -237,10 +240,10 @@ int main() {
     No *pilha = NULL;
     int valida = 1;
 
-    printf("Digite a expressão: ");
+printf("Digite a expressão: ");
     scanf("%s", expressao);
 
-    char *p = expressao;
+char *p = expressao;
     while (*p != '\0') {
         if (*p == '(' || *p == '[' || *p == '{') {
             push(&pilha, *p);
@@ -253,12 +256,12 @@ int main() {
         p++;
     }
 
-    if (valida && isEmpty(pilha)) {
+if (valida && isEmpty(pilha)) {
         printf("Expressão Válida!\n");
     } else {
         printf("Expressão Inválida!\n");
-        // Limpar pilha remanescente se necessário
-        while (!isEmpty(pilha)) pop(&pilha);
+        
+while (!isEmpty(pilha)) pop(&pilha);
     }
 
     return 0;
@@ -301,27 +304,27 @@ int main() {
     char str[100];
     No *pilha = NULL;
 
-    printf("Digite uma string: ");
+printf("Digite uma string: ");
     scanf(" %[^\n]", str); // Lê inclusive espaços
 
-    // 1. Inserir cada caractere na pilha
-    char *ptr = str;
+     1. Inserir cada caractere na pilha
+char *ptr = str;
     while (*ptr != '\0') {
         push(&pilha, *ptr);
         ptr++;
     }
 
-    // 2. Desempilhar de volta na string original (sobrescrevendo)
-    ptr = str;
+    
+ptr = str;
     while (pilha != NULL) {
         *ptr = pop(&pilha);
         ptr++;
     }
-    // O ponteiro ptr terminou no fim, a string original agora está invertida
+    
 
     printf("String invertida: %s\n", str);
 
-    return 0;
+return 0;
 }
 
 
@@ -349,7 +352,7 @@ void enfileirar(Fila *f, int id, int tempo) {
     novo->tempoAtendimento = tempo;
     novo->proximo = NULL;
 
-    if (f->tras == NULL) {
+if (f->tras == NULL) {
         f->frente = f->tras = novo;
     } else {
         f->tras->proximo = novo;
@@ -361,35 +364,35 @@ void atender(Fila *f) {
     int tempoEsperaTotal = 0;
     Cliente *atual = f->frente;
 
-    printf("\n--- Relatório de Atendimento ---\n");
+printf("\n--- Relatório de Atendimento ---\n");
     while (atual != NULL) {
         printf("Cliente ID: %d | Espera: %d min | Atendimento: %d min\n", 
                 atual->id, tempoEsperaTotal, atual->tempoAtendimento);
         
         tempoEsperaTotal += atual->tempoAtendimento;
         
-        // Remover da memória
-        Cliente *temp = atual;
+        
+ Cliente *temp = atual;
         atual = atual->proximo;
         free(temp);
     }
-    f->frente = f->tras = NULL;
+f->frente = f->tras = NULL;
 }
 
 int main() {
     Fila filaAtendimento = {NULL, NULL};
     int n, t;
 
-    printf("Quantos clientes serão atendidos? ");
+printf("Quantos clientes serão atendidos? ");
     scanf("%d", &n);
 
-    for (int i = 1; i <= n; i++) {
+for (int i = 1; i <= n; i++) {
         printf("Tempo de atendimento do cliente %d: ", i);
         scanf("%d", &t);
         enfileirar(&filaAtendimento, i, t);
     }
 
-    atender(&filaAtendimento);
+atender(&filaAtendimento);
     return 0;
 }
 
@@ -406,7 +409,7 @@ typedef struct Documento {
     struct Documento *proximo;
 } Documento;
 
-// Inserção ordenada por prioridade
+
 void inserirComPrioridade(Documento **frente, int id, int pag, int prio) {
     Documento *novo = (Documento*) malloc(sizeof(Documento));
     novo->id = id;
@@ -414,14 +417,14 @@ void inserirComPrioridade(Documento **frente, int id, int pag, int prio) {
     novo->prioridade = prio;
     novo->proximo = NULL;
 
-    // Caso 1: Fila vazia ou novo documento tem maior prioridade que o primeiro
-    if (*frente == NULL || prio < (*frente)->prioridade) {
+    
+if (*frente == NULL || prio < (*frente)->prioridade) {
         novo->proximo = *frente;
         *frente = novo;
     } 
-    else {
-        // Caso 2: Procurar a posição correta (mantendo ordem de chegada em empates)
-        Documento *atual = *frente;
+else {
+
+Documento *atual = *frente;
         while (atual->proximo != NULL && atual->proximo->prioridade <= prio) {
             atual = atual->proximo;
         }
@@ -437,7 +440,7 @@ void imprimirFila(Documento **frente) {
         printf("[Prioridade: %d] Doc ID: %d | Páginas: %d\n", 
                 temp->prioridade, temp->id, temp->paginas);
         
-        *frente = (*frente)->proximo;
+*frente = (*frente)->proximo;
         free(temp);
     }
 }
@@ -446,16 +449,16 @@ int main() {
     Documento *filaImpressao = NULL;
     int n, id, pag, prio;
 
-    printf("Quantidade de documentos para impressão: ");
+printf("Quantidade de documentos para impressão: ");
     scanf("%d", &n);
 
-    for (int i = 0; i < n; i++) {
+for (int i = 0; i < n; i++) {
         printf("\nDoc %d - ID, Páginas e Prioridade (ex: 101 5 1): ", i + 1);
         scanf("%d %d %d", &id, &pag, &prio);
         inserirComPrioridade(&filaImpressao, id, pag, prio);
     }
 
-    imprimirFila(&filaImpressao);
+imprimirFila(&filaImpressao);
     return 0;
 }
 
