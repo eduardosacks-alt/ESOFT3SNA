@@ -1,7 +1,7 @@
 # ESOFT3SNA
 Nome: eduardo bersch sacks
 
-ativ1: #include <stdio.h>
+#include <stdio.h>
 
 int main() {
     char p1[50], p2[50], p3[50];
@@ -11,7 +11,7 @@ int main() {
     return 0;
 }
 
-ativ2:  #include <stdio.h>
+ #include <stdio.h>
 
 int main() {
     int v[5];
@@ -20,7 +20,7 @@ int main() {
     return 0;
 }
 
-ativ3:  #include <stdio.h>
+ #include <stdio.h>
 
 int main() {
     int m[3][3];
@@ -37,7 +37,7 @@ int main() {
 }
 
 
-ativ4:  #include <stdio.h>
+ #include <stdio.h>
 
 int main() {
     int A[3][3], I[3][3] = {0}, R[3][3] = {0};
@@ -60,7 +60,8 @@ int main() {
     return 0;
 }
 
-ativ5:  #include <stdio.h>
+
+  #include <stdio.h>
 
 int main() {
     int v[3], m[3][3], res[3] = {0};
@@ -76,7 +77,8 @@ int main() {
     return 0;
 }
 
-ativ6:  #include <stdio.h>
+ 
+ #include <stdio.h>
 
 typedef struct {
     char nome[50];
@@ -101,7 +103,8 @@ int main() {
     return 0;
 }
 
-ativ7:  #include <stdio.h>
+ 
+ #include <stdio.h>
 #include <string.h>
 
 typedef struct {
@@ -125,7 +128,8 @@ int main() {
     return 0;
 }
 
-ativ8:  #include <stdio.h>
+
+#include <stdio.h>
 
 int main() {
     int v[5];
@@ -134,7 +138,8 @@ int main() {
     return 0;
 }
 
-ativ9:  #include <stdio.h>
+ 
+ #include <stdio.h>
 
 int ordena(int *a, int *b, int *c) {
     int temp;
@@ -152,7 +157,9 @@ int main() {
     return 0;
 }
 
-ativ10: #include <stdio.h>
+
+
+#include <stdio.h>
 #include <stdlib.h>
 
 typedef struct {
