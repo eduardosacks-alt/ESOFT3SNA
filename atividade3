@@ -1,0 +1,133 @@
+ATIVIDADE3
+desafio1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Cliente {
+    int id;
+    int tempoAtendimento;
+    struct Cliente *proximo;
+} Cliente;
+
+typedef struct {
+    Cliente *frente;
+    Cliente *tras;
+} Fila;
+
+void enfileirar(Fila *f, int id, int tempo) {
+    Cliente *novo = (Cliente*) malloc(sizeof(Cliente));
+    novo->id = id;
+    novo->tempoAtendimento = tempo;
+    novo->proximo = NULL;
+
+if (f->tras == NULL) {
+        f->frente = f->tras = novo;
+    } else {
+        f->tras->proximo = novo;
+        f->tras = novo;
+    }
+}
+
+void atender(Fila *f) {
+    int tempoEsperaTotal = 0;
+    Cliente *atual = f->frente;
+
+printf("\n--- Relatório de Atendimento ---\n");
+    while (atual != NULL) {
+        printf("Cliente ID: %d | Espera: %d min | Atendimento: %d min\n", 
+                atual->id, tempoEsperaTotal, atual->tempoAtendimento);
+        
+        tempoEsperaTotal += atual->tempoAtendimento;
+        
+        
+ Cliente *temp = atual;
+        atual = atual->proximo;
+        free(temp);
+    }
+f->frente = f->tras = NULL;
+}
+
+int main() {
+    Fila filaAtendimento = {NULL, NULL};
+    int n, t;
+
+printf("Quantos clientes serão atendidos? ");
+    scanf("%d", &n);
+
+for (int i = 1; i <= n; i++) {
+        printf("Tempo de atendimento do cliente %d: ", i);
+        scanf("%d", &t);
+        enfileirar(&filaAtendimento, i, t);
+    }
+
+atender(&filaAtendimento);
+    return 0;
+}
+
+
+desafio2:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Documento {
+    int id;
+    int paginas;
+    int prioridade;
+    struct Documento *proximo;
+} Documento;
+
+
+void inserirComPrioridade(Documento **frente, int id, int pag, int prio) {
+    Documento *novo = (Documento*) malloc(sizeof(Documento));
+    novo->id = id;
+    novo->paginas = pag;
+    novo->prioridade = prio;
+    novo->proximo = NULL;
+
+    
+if (*frente == NULL || prio < (*frente)->prioridade) {
+        novo->proximo = *frente;
+        *frente = novo;
+    } 
+else {
+
+Documento *atual = *frente;
+        while (atual->proximo != NULL && atual->proximo->prioridade <= prio) {
+            atual = atual->proximo;
+        }
+        novo->proximo = atual->proximo;
+        atual->proximo = novo;
+    }
+}
+
+void imprimirFila(Documento **frente) {
+    printf("\n--- Ordem de Impressão ---\n");
+    while (*frente != NULL) {
+        Documento *temp = *frente;
+        printf("[Prioridade: %d] Doc ID: %d | Páginas: %d\n", 
+                temp->prioridade, temp->id, temp->paginas);
+        
+*frente = (*frente)->proximo;
+        free(temp);
+    }
+}
+
+int main() {
+    Documento *filaImpressao = NULL;
+    int n, id, pag, prio;
+
+printf("Quantidade de documentos para impressão: ");
+    scanf("%d", &n);
+
+for (int i = 0; i < n; i++) {
+        printf("\nDoc %d - ID, Páginas e Prioridade (ex: 101 5 1): ", i + 1);
+        scanf("%d %d %d", &id, &pag, &prio);
+        inserirComPrioridade(&filaImpressao, id, pag, prio);
+    }
+
+imprimirFila(&filaImpressao);
+    return 0;
+}
+
