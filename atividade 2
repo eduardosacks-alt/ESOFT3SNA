@@ -1,0 +1,133 @@
+ATIVIDADE2
+desafio1
+    
+#include <stdio.h>
+#include <stdlib.h>
+
+
+typedef struct No {
+    char dado;
+    struct No *proximo;
+} No;
+
+
+void push(No **topo, char valor) {
+    No *novo = (No*) malloc(sizeof(No));
+    if (novo) {
+        novo->dado = valor;
+        novo->proximo = *topo;
+        *topo = novo;
+    }
+}
+
+char pop(No **topo) {
+    if (*topo == NULL) return '\0';
+    No *temp = *topo;
+    char valor = temp->dado;
+    *topo = temp->proximo;
+    free(temp);
+    return valor;
+}
+
+int isEmpty(No *topo) {
+    return topo == NULL;
+}
+
+int correspondente(char abrindo, char fechando) {
+    if (abrindo == '(' && fechando == ')') return 1;
+    if (abrindo == '[' && fechando == ']') return 1;
+    if (abrindo == '{' && fechando == '}') return 1;
+    return 0;
+}
+
+int main() {
+    char expressao[100];
+    No *pilha = NULL;
+    int valida = 1;
+
+printf("Digite a expressão: ");
+    scanf("%s", expressao);
+
+char *p = expressao;
+    while (*p != '\0') {
+        if (*p == '(' || *p == '[' || *p == '{') {
+            push(&pilha, *p);
+        } else if (*p == ')' || *p == ']' || *p == '}') {
+            if (isEmpty(pilha) || !correspondente(pop(&pilha), *p)) {
+                valida = 0;
+                break;
+            }
+        }
+        p++;
+    }
+
+if (valida && isEmpty(pilha)) {
+        printf("Expressão Válida!\n");
+    } else {
+        printf("Expressão Inválida!\n");
+        
+while (!isEmpty(pilha)) pop(&pilha);
+    }
+
+    return 0;
+}
+    free(turma);
+    return 0;
+}
+
+
+desafio2:
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct No {
+    char caracter;
+    struct No *prox;
+} No;
+
+void push(No **topo, char c) {
+    No *novo = (No*) malloc(sizeof(No));
+    if (novo) {
+        novo->caracter = c;
+        novo->prox = *topo;
+        *topo = novo;
+    }
+}
+
+char pop(No **topo) {
+    if (*topo == NULL) return '\0';
+    No *aux = *topo;
+    char c = aux->caracter;
+    *topo = aux->prox;
+    free(aux);
+    return c;
+}
+
+int main() {
+    char str[100];
+    No *pilha = NULL;
+
+printf("Digite uma string: ");
+    scanf(" %[^\n]", str); 
+
+     1. Inserir cada caractere na pilha
+char *ptr = str;
+    while (*ptr != '\0') {
+        push(&pilha, *ptr);
+        ptr++;
+    }
+
+    
+ptr = str;
+    while (pilha != NULL) {
+        *ptr = pop(&pilha);
+        ptr++;
+    }
+    
+
+    printf("String invertida: %s\n", str);
+
+return 0;
+}
